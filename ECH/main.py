@@ -20,3 +20,4 @@ while not crashed:
     clock.tick(10)
 
 pygame.quit()
+quit()
