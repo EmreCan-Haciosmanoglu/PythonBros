@@ -14,6 +14,7 @@ PERSON_POSITION_X = DISPLAY_WIDTH * 0.25 - PERSON_IMAGE_WIDTH
 PERSON_POSITION_Y = DISPLAY_HEIGHT - PERSON_IMAGE_HEIGHT - GROUND_HEIGHT
 PERSON_VELOCITY_X = 0
 PERSON_VELOCITY_Y = 0
+PERSON_JUMP_SPEED = -40
 GRAVITY = 5
 
 
@@ -27,14 +28,14 @@ crashed = False
 def physics():
     global PERSON_VELOCITY_Y
     global PERSON_POSITION_Y
-    if PERSON_POSITION_Y == DISPLAY_HEIGHT - GROUND_HEIGHT:
+    PERSON_POSITION_Y += PERSON_VELOCITY_Y
+    if PERSON_POSITION_Y == DISPLAY_HEIGHT - PERSON_IMAGE_HEIGHT - GROUND_HEIGHT:
         PERSON_VELOCITY_Y = 0
-    elif PERSON_POSITION_Y > DISPLAY_HEIGHT - GROUND_HEIGHT:
-        PERSON_POSITION_Y = DISPLAY_HEIGHT - GROUND_HEIGHT
+    elif PERSON_POSITION_Y > DISPLAY_HEIGHT - PERSON_IMAGE_HEIGHT - GROUND_HEIGHT:
+        PERSON_POSITION_Y = DISPLAY_HEIGHT - PERSON_IMAGE_HEIGHT - GROUND_HEIGHT
         PERSON_VELOCITY_Y = 0
     else:
         PERSON_VELOCITY_Y += GRAVITY
-    PERSON_POSITION_Y += PERSON_VELOCITY_Y
 
 
 def person(x, y):
@@ -42,14 +43,17 @@ def person(x, y):
 
 
 while not crashed:
+
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
             crashed = True
 
         if event.type == pygame.KEYDOWN:
-            print(event)
-
+            if event.key == pygame.K_SPACE and PERSON_POSITION_Y == DISPLAY_HEIGHT - PERSON_IMAGE_HEIGHT - GROUND_HEIGHT:
+                print(event)
+                PERSON_VELOCITY_Y = PERSON_JUMP_SPEED
+    physics()
     gameDisplay.fill(COLOR_WHITE)
     person(PERSON_POSITION_X, PERSON_POSITION_Y)
 
