@@ -26,6 +26,8 @@ while not crashed:
         if event.type == pygame.KEYDOWN:
             print(event)
 
+    gameDisplay.fill(COLOR_WHITE)
+
     pygame.display.update()
     clock.tick(10)
 
