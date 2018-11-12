@@ -35,7 +35,7 @@ while not crashed:
             print(event)
 
     gameDisplay.fill(COLOR_WHITE)
-    person(PERSON_IMAGE, (PERSON_POSITION_X, PERSON_POSITION_Y))
+    person(PERSON_POSITION_X, PERSON_POSITION_Y)
 
     pygame.display.update()
     clock.tick(10)
